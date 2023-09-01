@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<form class="login-form" th:action="@{/member/login}"  method="post">
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="row new-account-login">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="title-left">
+                        <h3>로그인이 필요합니다.</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email" class="mb-0">이메일주소</label>
+                            <input type="email" class="form-control" id="email" name="email"  placeholder="john@doe.com">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password" class="mb-0">비밀번호</label>
+                            <input type="password" class="form-control" id="password" name="password"  placeholder="Password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn hvr-hover">로그인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
