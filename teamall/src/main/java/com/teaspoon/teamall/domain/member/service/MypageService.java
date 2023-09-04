@@ -4,12 +4,11 @@ import com.teaspoon.teamall.domain.member.dto.*;
 
 public interface MypageService {
 
-
-
+    MemberDTO selectMember(String email);
 
     int updateMember(MemberDTO memberDTO);
 
     int deleteMember(MemberDTO memberDTO);
 
-    MemberDTO selectMember(FindInfoResponseDTO pwdto);
+
 }

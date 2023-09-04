@@ -1,8 +1,6 @@
 package com.teaspoon.teamall.domain.member.service;
 
-import com.teaspoon.teamall.domain.member.dto.LoginDTO;
-import com.teaspoon.teamall.domain.member.dto.LoginResponseDTO;
-import com.teaspoon.teamall.domain.member.dto.MemberDTO;
+import com.teaspoon.teamall.domain.member.dto.*;
 import com.teaspoon.teamall.domain.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,16 +15,6 @@ public class MemberServiceImpl implements MemberService {
     /* 회원가입 */
     public int join(MemberDTO memberDTO) {  return memberMapper.join(memberDTO);    }
 
-    /* 회원수정 */
-    public int updateMember(MemberDTO memberDTO) {
-        return memberMapper.updateMember(memberDTO);
-    }
-
-    /* 회원삭제 */
-    public int deleteMember(MemberDTO memberDTO) {
-        return memberMapper.deleteMember(memberDTO);
-    }
-
     /* 로그인 */
     public LoginResponseDTO login(LoginDTO loginDTO) {
 
@@ -38,49 +26,39 @@ public class MemberServiceImpl implements MemberService {
         }
         return null;
     }
+    
+    /* 아이디찾기 */
+    public FindInfoResponseDTO findID(FindInfoDTO findInfoDTO) {
 
-//    public boolean login(MemberDTO memberDTO) {
-//        return memberMapper.login(memberDTO);
-//    }
+        System.out.println(findInfoDTO.toString());
+        System.out.println(findInfoDTO.toString());
+        FindInfoResponseDTO IDDTO = memberMapper.findID(findInfoDTO);
+        System.out.println(IDDTO.toString());
+        if (IDDTO != null){
 
-//    /* 내 정보 조회 */
+            return IDDTO;
+        }
+        return null;
+    }
+
+    /* 비밀번호찾기 */
+    public FindInfoResponseDTO findPW(FindInfoDTO findInfoDTO) {
+
+        System.out.println(findInfoDTO.toString());
+        FindInfoResponseDTO PWDTO = memberMapper.findPW(findInfoDTO);
+        if (PWDTO != null){
+
+            return PWDTO;
+        }
+        return null;
+    }
+
+        /* 내 정보 조회 -> 회원 CRUD 연습용. UnusedAPI*/
 //    public String selectMember( MemberDTO memberDTO) {
 //
 //        memberMapper.selectMember(memberDTO);
 //
 //        return MemberDTO;
 //    }
-
-
-//
-//    /* 아이디찾기 */
-//    public String findID(String email) {
-//
-//        memberDTO =null;
-//
-//        /* data 유효성 검증 */
-//        if(email != null) {
-//            memberDTO = MemberMapper.findID(email);
-//        }else {
-//            memberDTO = null;
-//        }
-//
-//        return null;
-//    }
-//
-//    /* 비밀번호찾기 */
-//    public String findPW(String password) {
-//
-//        memberDTO = null;
-//
-//        /* data 유효성 검증 */
-//        if(id != null) {
-//            memberDTO = MemberMapper.findPW(email);
-//        }else {
-//            memberDTO = null;
-//        }
-//
-//        return null;
-//    }
-
+    
 }

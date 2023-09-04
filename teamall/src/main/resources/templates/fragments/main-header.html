@@ -26,52 +26,106 @@
             </div>
             <!-- /.navbar-collapse -->
 
-            <!-- Start Atribute Navigation -->
+            <!-- Start Attribute Navigation -->
             <div class="attr-nav">
                 <ul>
                     <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                     <li class="side-menu">
                         <a href="#">
-                            <i class="fa fa-shopping-bag"></i>
-                            <span class="badge">3</span>
-                            <p>My Cart</p>
+                            <p>My Account</p>
                         </a>
                     </li>
                 </ul>
             </div>
-            <!-- End Atribute Navigation -->
+            <!-- End Attribute Navigation -->
         </div>
+
         <!-- Start Side Menu -->
         <div class="side">
-            <a href="#" class="close-side"><i class="fa fa-times"></i></a>
-            <li class="cart-box">
-                <ul class="cart-list">
-                    <li>
-                        <a href="#" clascs="photo"><img src="/images/img-pro-01.jpg" class="cart-thumb" alt=""/></a>
-                        <h6><a href="/member/get-login">Delica omtantur </a></h6>
-                        <p>1x - <span class="price">$80.00</span></p>
-                    </li>
-                    <li>
-                        <a href="#" class="photo"><img src="/images/img-pro-02.jpg" class="cart-thumb" alt=""/></a>
-                        <h6><a href="/member/login">Omnes ocurreret</a></h6>
-                        <p>1x - <span class="price">$60.00</span></p>
-                    </li>
-                    <li>
-                        <a href="#" class="photo"><img src="/images/img-pro-03.jpg" class="cart-thumb" alt=""/></a>
-                        <h6><a href="/member/login">Agam facilisis</a></h6>
-                        <p>1x - <span class="price">$40.00</span></p>
-                    </li>
-                    <li class="total">
-                        <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                        <span class="float-right"><strong>Total</strong>: $180.00</span>
-                    </li>
-                </ul>
-            </li>
+
+            <div th:if="${session.loginSuccess != null}" class="top_menu">
+                <div class="login_user"><strong><i class="far fa-user-circle"></i> [[ ${session.loginSuccess.nickname} ]]</strong>님 반갑습니다.</div>
+                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+                <li class="cart-box">
+                    <ul class="cart-list">
+                        <li class="total">
+                            <a href="/mypage/select" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/select" class="badge">내 정보<br>조회하기</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/mypage/update" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/update" class="badge">내 정보<br>수정하기</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/mypage/delete" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/delete" class="badge">회원<br>탈퇴하기</a></h1>
+                        </li>
+                        <li class="total">
+                            <form action="/mypage/logout" method="get">
+                                <button type="submit"><span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i></button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div th:if="${session.loginSuccess == null}">
+                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+                <li class="cart-box">
+                    <ul class="cart-list">
+                        <li class="total">
+                            <a href="/member/login" class="photo"><img src="/images/member-ico/login.png" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/login" class="badge">Login<br>(with your mail)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/member/join" class="photo"><img src="/images/member-ico/join.png" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/join" class="badge">Join us!!<br>(Welcome!!)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/member/findID" class="photo"><img src="/images/member-ico/findID.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/findID" class="badge">Find E-mail<br>(with your phone)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/member/findPW" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/findPW" class="badge">Find PW<br>(with your E-mail)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/mypage/select" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/select" class="badge">select my info<br>(with your E-mail)</a></h1>
+                        </li>
+                    </ul>
+                </li>
+            </div>
         </div>
-        <!-- End Side Menu -->
+
+
+
+        <!-- Start Side Menu If you Logged in-->
+        <!--        <div class="side">-->
+        <!--            <a href="#" class="close-side"><i class="fa fa-times"></i></a>-->
+        <!--            <li class="cart-box">-->
+        <!--                <ul class="cart-list">-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/selectMember" class="photo"><img src="/images/member-ico/login.png" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/selectMember" class="badge">Login<br>(with your mail)</a></h1>-->
+        <!--                    </li>-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/updateMember" class="photo"><img src="/images/member-ico/join.png" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/updateMember" class="badge">Join us!!<br>(Welcome!!)</a></h1>-->
+        <!--                    </li>-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/deleteMember" class="photo"><img src="/images/member-ico/findID.jpg" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/deleteMember" class="badge">Find E-mail<br>(with your phone)</a></h1>-->
+        <!--                    </li>-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/logout" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/logout" class="badge">Find PW<br>(with your E-mail)</a></h1>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </li>-->
+        <!--        </div>-->
+        <!-- End Side Menu If you Logged in-->
     </nav>
     <!-- End Navigation -->
 </header>
 <!-- End Main Top -->
-
 </html>

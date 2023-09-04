@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<form class="select-form" th:action="@{/mypage/select}"  method="get">
+
+    <h1>내 정보 조회 페이지입니다.</h1>
+
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Nickname</th>
+            <th>Gender</th>
+            <th>Birth</th>
+            <th>Phone</th>
+            <th>Create Date</th>
+            <th>Update Date</th>
+        </tr>
+        <tr>
+            <td th:text="${memberDTO.email}"></td>
+            <td th:text="${memberDTO.nickname}"></td>
+            <td th:text="${memberDTO.gender}"></td>
+            <td th:text="${memberDTO.birth}"></td>
+            <td th:text="${memberDTO.phone}"></td>
+            <td th:text="${memberDTO.create_Date}"></td>
+            <td th:text="${memberDTO.update_Date}"></td>
+        </tr>
+    </table>
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- ALL PLUGINS -->
+    <script th:src="@{/js/jquery.superslides.min.js}"></script>
+    <script th:src="@{/js/bootstrap-select.js}"></script>
+    <script th:src="@{/js/inewsticker.js}"></script>
+    <script th:src="@{/js/bootsnav.js}"></script>
+    <script th:src="@{/js/images-loded.min.js}"></script>
+    <script th:src="@{/js/isotope.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/baguetteBox.min.js}"></script>
+    <script th:src="@{/js/form-validator.min.js}"></script>
+    <script th:src="@{/js/contact-form-script.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
+</form>
+</body>
+
+</html>

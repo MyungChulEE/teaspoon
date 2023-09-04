@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MypageMapper {
 
     /**
-     * 회원가입
-     * @param memberDTO - 멤버의 DTO
-     * @return - int
+     * 회원조회
+     * @param email - email값
+     * @return - MemberDTO
      */
-    int join(MemberDTO memberDTO);
+    MemberDTO selectMember(String email);
 
     /**
      * 회원수정
@@ -27,28 +27,4 @@ public interface MypageMapper {
      */
     int deleteMember(MemberDTO memberDTO);
 
-    /**
-     * 로그인
-     * @param loginDTO - 로그인 요청 DTO (email, password)
-     * @return - 로그인 응답 DTO (member_no, email, nickname)
-     */
-    LoginResponseDTO login(LoginDTO loginDTO);
-
-    /**
-     * 아이디 찾기
-     * @param findInfoDTO - (phone, birth)
-     * @return - 멤버정보 응답 DTO - (email)
-     */
-    FindInfoResponseDTO findID(FindInfoDTO findInfoDTO);
-
-    /**
-     * 비밀번호 찾기
-     * @param findInfoDTO - (phone, birth, email)
-     * @return - 멤버정보 응답 DTO - (password)
-     */
-    FindInfoResponseDTO findPW(FindInfoDTO findInfoDTO);
-
-
-    /* 내 정보 조회 -> 회원 CRUD 연습용. UnusedAPI*/
-//    MemberDTO selectMember(HttpServletRequest HSreq, Model model);
 }
