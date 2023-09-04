@@ -19,10 +19,11 @@
     </select>
 
     <select id="searchProduct" resultType="com.teaspoon.teamall.domain.product.dto.ProductDTO" parameterType="String">
+        <![CDATA[
         select product_no, product_name, product_content, product_price, product_category
         from product
         where #{searchType} like concat('%', #{searchWord}, '%')
-
+        ]]>
     </select>
 
     <insert id="productRegist" parameterType="com.teaspoon.teamall.domain.product.dto.ProductDTO" useGeneratedKeys="true" keyProperty="productNo">

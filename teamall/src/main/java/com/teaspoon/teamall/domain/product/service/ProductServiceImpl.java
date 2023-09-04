@@ -38,7 +38,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void productRegist(ProductRequestDTO productRequestDTO) {
-        Integer cateNo = productMapper.getCateNo(productRequestDTO);
         String categoryCode = productRequestDTO.getCategory1() + "," + productRequestDTO.getCategory2() + "," + productRequestDTO.getCategory3();
         ProductDTO productDTO = ProductDTO.builder()
                 .productCategory(categoryCode)

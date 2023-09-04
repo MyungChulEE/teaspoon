@@ -2,11 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="top-search" class="top-search">
     <div class="container">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Search">
+        <form th:action="@{/product/search}" method="get">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <select name="searchType">
+                    <option value="productName">상품명</option>
+                    <option value="productContent">상품소개</option>
+                    <option value="productPrice">상품가격</option>
+                </select>
+                <input type="text" class="form-control" name="searchWord">
+                <button type="submit">찾기</button>
             <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
         </div>
+    </form>
     </div>
 </div>
 </html>

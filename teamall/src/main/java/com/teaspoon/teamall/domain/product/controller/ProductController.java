@@ -72,5 +72,15 @@ public class ProductController {
 
         return "/order/cart";
     }
+    @GetMapping("/search")
+    public String searchProduct(@RequestParam String searchType,@RequestParam String searchWord, Model model) {
+        System.out.println(searchType);
+        System.out.println(searchWord);
+        List<ProductDTO> productList = productService.searchProductList(searchType, searchWord);
+        System.out.println("=================");
+        productList.stream().forEach(System.out::println);
+        model.addAttribute("productList", productList);
+        return "/product/productList";
+    }
 
 }
