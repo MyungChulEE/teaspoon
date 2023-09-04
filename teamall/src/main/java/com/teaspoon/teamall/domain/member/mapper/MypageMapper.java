@@ -4,7 +4,7 @@ import com.teaspoon.teamall.domain.member.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface MemberMapper {
+public interface MypageMapper {
 
     /**
      * 회원가입
