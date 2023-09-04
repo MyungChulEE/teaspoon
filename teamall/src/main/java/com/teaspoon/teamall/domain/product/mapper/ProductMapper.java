@@ -1,5 +1,6 @@
 package com.teaspoon.teamall.domain.product.mapper;
 
+import com.teaspoon.teamall.domain.order.dto.OrderProductResponseDTO;
 import com.teaspoon.teamall.domain.product.dto.ProductDTO;
 import com.teaspoon.teamall.domain.product.dto.ProductRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,6 @@ public interface ProductMapper {
 
     void productDelete(ProductDTO productDTO);
 
+    OrderProductResponseDTO findProductNo(int productNo);
 
 }

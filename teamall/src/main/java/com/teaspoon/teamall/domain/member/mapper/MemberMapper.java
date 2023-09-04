@@ -1,6 +1,9 @@
 package com.teaspoon.teamall.domain.member.mapper;
 
-import com.teaspoon.teamall.domain.member.dto.*;
+import com.teaspoon.teamall.domain.member.dto.LoginDTO;
+import com.teaspoon.teamall.domain.member.dto.LoginResponseDTO;
+import com.teaspoon.teamall.domain.member.dto.MemberDTO;
+import com.teaspoon.teamall.domain.member.dto.MemberProfileDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -33,22 +36,18 @@ public interface MemberMapper {
      * @return - 로그인 응답 DTO (member_no, email, nickname)
      */
     LoginResponseDTO login(LoginDTO loginDTO);
-
-    /**
-     * 아이디 찾기
-     * @param findInfoDTO - (phone, birth)
-     * @return - 멤버정보 응답 DTO - (email)
-     */
-    FindInfoResponseDTO findID(FindInfoDTO findInfoDTO);
-
-    /**
-     * 비밀번호 찾기
-     * @param findInfoDTO - (phone, birth, email)
-     * @return - 멤버정보 응답 DTO - (password)
-     */
-    FindInfoResponseDTO findPW(FindInfoDTO findInfoDTO);
+    //  boolean login(MemberDTO memberDTO);
 
 
-    /* 내 정보 조회 -> 회원 CRUD 연습용. UnusedAPI*/
+    /*내 정보 조회*/
 //    MemberDTO selectMember(HttpServletRequest HSreq, Model model);
+
+
+    /*아이디찾기*/
+//    MemberVO findID(MemberDTO memberDTO);
+
+    /*비밀번호찾기*/
+//    MemberVO findPW(MemberDTO memberDTO);
+
+    MemberProfileDTO findByProfile(String email);
 }

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>주문 리스트</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active">OrderList</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Wishlist  -->
+<div class="orderlist-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>주문 코드</th>
+                            <th>결제 금액</th>
+                            <th>주문 시간</th>
+                            <th>주문 상태</th>
+                            <th>주문 수정</th>
+                            <th>주문 취소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:classappend="|row-${order.orderNo}|" th:id="|row-${order.orderCode}|"
+                            th:each="order, orderStatus : ${orders}">
+                            <td class="orderList" th:text="${orderStatus.index + 1}"></td>
+                            <td class="name-pr">
+                                <a class="order-code" th:href="@{'/order/' + ${order.orderCode}}"
+                                   th:text="${order.orderCode}"></a>
+                            </td>
+                            <td class="price" th:text="${order.orderPrice}"></td>
+                            <td class="time"
+                                th:text="${#temporals.format(order.orderTime, 'yyyy-MM-dd HH:mm:ss' )}"></td>
+                            <td class="status">
+                                <span th:switch="${order.orderStatus}">
+                                <span th:case="1">배송 준비</span>
+                                <span th:case="2">배송중</span>
+                                <span th:case="3">배송 완료</span>
+                                </span>
+                            </td>
+                            <td class="add-pr">
+                                <a class="btn hvr-hover" th:href="@{'/order/modify/' + ${order.orderCode}}">주문 수정</a>
+                            </td>
+                            <td class="remove-pr">
+                                <button class="btn btn-primary remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <ul class="pagination pagination-lg">
+
+                        <li th:class="${currentPage == 1 ? ' page-item disabled' : ' page-item '}">
+                            <a class=" page-link " th:href="@{/order/page(no=${currentPage - 1})}">이전</a>
+                        </li>
+
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                            th:class="${pageNumber == currentPage ? 'page-item active' : 'page-item'}">
+                            <a class="page-link" th:href="@{/order/page(no=${pageNumber})}" th:text="${pageNumber}"></a>
+                        </li>
+
+                        <li th:class="${currentPage == totalPages ? ' page-item disabled' : ' page-item '}">
+                            <a class=" page-link " th:href="@{/order/page(no=${currentPage + 1})}">다음</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Wishlist -->
+
+<!-- Start Instagram Feed  -->
+<div th:replace="/fragments/instagram-box :: instagram-box"></div>
+<!-- End Instagram Feed  -->
+
+<!-- Start Footer  -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer  -->
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<script>
+    let currentPageNo = 1;
+
+    document.querySelectorAll('.remove').forEach(button => {
+        button.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const row = e.target.closest('tr');
+            const code = row.querySelector('.order-code').textContent;
+            const no = row.querySelector('.orderList').textContent;
+
+            console.log(`${no}, ${code}`);
+
+            const deleteCheck = confirm('주문을 취소 하시겠습니까?');
+            if (deleteCheck) {
+                deleteOrder(code)
+                    .then(() => {
+                        const row = document.querySelector(`#row-${code}`);
+                        console.log(row);
+                        if (row) {
+                            row.parentNode.removeChild(row);
+                        }
+
+                    }).catch(error => {
+                    console.error(`error ${code}:`, error);
+                })
+            }
+        });
+    });
+
+    async function deleteOrder(code) {
+
+        const response = await fetch('http://localhost:8080/order/' + code, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(`${response.status}`);
+        }
+        const result = await response.text();
+
+        console.log(result);
+        return Promise.resolve();
+    }
+
+</script>
+<!-- ALL JS FILES -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- ALL PLUGINS -->
+<script th:src="@{/js/jquery.superslides.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/inewsticker.js}"></script>
+<script th:src="@{/js/bootsnav.js}"></script>
+<script th:src="@{/js/images-loded.min.js}"></script>
+<script th:src="@{/js/isotope.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/baguetteBox.min.js}"></script>
+<script th:src="@{/js/form-validator.min.js}"></script>
+<script th:src="@{/js/contact-form-script.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

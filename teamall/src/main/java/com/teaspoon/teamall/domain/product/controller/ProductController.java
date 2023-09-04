@@ -61,6 +61,16 @@ public class ProductController {
         return "product/productdetail.html";
     }
 
+    @GetMapping("/detail")
+    public String productForm(){
 
+        return "product/shop-detail";
+    }
+
+    @GetMapping("/cart")
+    public String productCart(){
+
+        return "/order/cart";
+    }
 
 }

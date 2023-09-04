@@ -30,23 +30,6 @@
         AND password = #{password}
     </delete>
 
-    <!--아이디찾기-->
-    <select id="findID" parameterType="com.teaspoon.teamall.domain.member.dto.FindInfoDTO" resultType="com.teaspoon.teamall.domain.member.dto.FindInfoResponseDTO" >
-        SELECT email
-        FROM member
-        WHERE birth = #{birth}
-          AND phone = #{phone}
-    </select>
-
-    <!--비밀번호찾기-->
-    <select id="findPW" parameterType="com.teaspoon.teamall.domain.member.dto.FindInfoDTO" resultType="com.teaspoon.teamall.domain.member.dto.FindInfoResponseDTO">
-        SELECT password
-        FROM member
-        WHERE email = #{email}
-          AND birth = #{birth}
-          AND phone = #{phone}
-    </select>
-
     <!--로그인-->
     <select id="login" parameterType="com.teaspoon.teamall.domain.member.dto.LoginDTO" resultType="com.teaspoon.teamall.domain.member.dto.LoginResponseDTO">
         SELECT member_no, email, nickname
@@ -55,10 +38,25 @@
           AND password = #{password}
     </select>
 
-    <!--로그아웃-->
 
+    <!--    &lt;!&ndash;아이디찾기&ndash;&gt;-->
+<!--    <select id="findID" parameterType="com.teaspoon.teamall.domain.member.dto.MemberDTO" resultType="com.teaspoon.teamall.domain.member.dto.MemberDTO" >-->
+<!--        SELECT email-->
+<!--        FROM member-->
+<!--        WHERE birth = #{birth}-->
+<!--          AND phone = #{phone}-->
+<!--    </select>-->
 
-    <!--    &lt;!&ndash;내 정보 조회 -> CRUD 연습 미사용 &ndash;&gt;-->
+<!--    &lt;!&ndash;비밀번호찾기&ndash;&gt;-->
+<!--    <select id="findPW" parameterType="com.teaspoon.teamall.domain.member.dto.MemberDTO" resultType="com.teaspoon.teamall.domain.member.dto.MemberDTO">-->
+<!--        SELECT password-->
+<!--        FROM member-->
+<!--        WHERE email = #{email}-->
+<!--          AND birth = #{birth}-->
+<!--          AND phone = #{phone}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;내 정보 조회&ndash;&gt;-->
 <!--    <select id="selectMember" parameterType="com.teaspoon.teamall.domain.member.dto.MemberDTO" resultType="com.teaspoon.teamall.domain.member.dto.MemberDTO">-->
 <!--        SELECT member_no, email, password, nickname, gender, birth, phone, DATE_FORMAT(create_date, '%Y.%M.%D') AS create_date, DATE_FORMAT(update_date, '%Y.%M.%D')AS update_date-->
 <!--        FROM member-->
@@ -66,4 +64,9 @@
 <!--          AND password = #{password}-->
 <!--    </select>-->
 
+    <select id="findByProfile" resultType="com.teaspoon.teamall.domain.member.dto.MemberProfileDTO">
+        SELECT member_no, phone
+        FROM member
+        WHERE email = #{email}
+    </select>
 </mapper>

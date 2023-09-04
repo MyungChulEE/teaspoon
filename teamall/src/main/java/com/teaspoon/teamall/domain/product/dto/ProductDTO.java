@@ -10,11 +10,11 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductDTO {
     private int productNo;
-    private String productCategory;
+    private int prodCatePk;
     private String productName;
     private String productContent;
     private int productPrice;
-
+    private int productCnt;
 
 
 

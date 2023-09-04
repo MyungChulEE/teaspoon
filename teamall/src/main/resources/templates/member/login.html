@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
 <!-- Basic -->
 
 <head th:replace="/fragments/head :: head"></head>
@@ -15,12 +16,11 @@
 <div th:replace="/fragments/top-search :: top-search"></div>
 <!-- End Top Search -->
 
-<!-- Start login -->
 <form class="login-form" th:action="@{/member/login}"  method="post">
     <div class="cart-box-main">
         <div class="container">
-            <div>
-                <div>
+            <div class="row new-account-login">
+                <div class="col-sm-6 col-lg-6 mb-3">
                     <div class="title-left">
                         <h3>로그인이 필요합니다.</h3>
                     </div>
@@ -28,64 +28,17 @@
                         <div class="form-group col-md-6">
                             <label for="email" class="mb-0">이메일주소</label>
                             <input type="email" class="form-control" id="email" name="email"  placeholder="john@doe.com">
-                            <div class="invalid-feedback">이메일을 정확히 입력해주세요.
-                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password" class="mb-0">비밀번호</label>
                             <input type="password" class="form-control" id="password" name="password"  placeholder="Password">
-                            <div class="invalid-feedback">비밀번호를 정확히 입력해주세요.
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <button type="submit" class="btn hvr-hover">로그인</button>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-sm">
-                            <p></p>
-                        </div>
-                        <div class="form-group col-sm-auto">
-                            <p><a class="btn hvr-hover" href="/member/findID">아이디 찾기</a></p>
-                        </div>
-                        <div class="form-group col-sm-auto">
-                            <p><a class="btn hvr-hover" href="/member/findPW">비밀번호 찾기</a></p>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn hvr-hover">로그인</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
-<!-- End login -->
-
-<!-- Start Instagram Feed  -->
-<div th:replace="/fragments/instagram-box :: instagram-box"></div>
-<!-- End Instagram Feed  -->
-
-<!-- Start Footer  -->
-<footer th:replace="/fragments/footer :: footer"></footer>
-<!-- End Footer  -->
-
-<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-
-<!-- ALL JS FILES -->
-<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<!-- ALL PLUGINS -->
-<script th:src="@{/js/jquery.superslides.min.js}"></script>
-<script th:src="@{/js/bootstrap-select.js}"></script>
-<script th:src="@{/js/inewsticker.js}"></script>
-<script th:src="@{/js/bootsnav.js}"></script>
-<script th:src="@{/js/images-loded.min.js}"></script>
-<script th:src="@{/js/isotope.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/baguetteBox.min.js}"></script>
-<script th:src="@{/js/form-validator.min.js}"></script>
-<script th:src="@{/js/contact-form-script.js}"></script>
-<script th:src="@{/js/custom.js}"></script>
-
 </body>
-
 </html>

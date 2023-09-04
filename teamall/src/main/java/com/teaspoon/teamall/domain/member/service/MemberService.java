@@ -1,6 +1,8 @@
 package com.teaspoon.teamall.domain.member.service;
 
-import com.teaspoon.teamall.domain.member.dto.*;
+import com.teaspoon.teamall.domain.member.dto.LoginDTO;
+import com.teaspoon.teamall.domain.member.dto.LoginResponseDTO;
+import com.teaspoon.teamall.domain.member.dto.MemberDTO;
 
 public interface MemberService {
 
@@ -12,7 +14,9 @@ public interface MemberService {
 
     LoginResponseDTO login(LoginDTO loginDTO);
 
-    FindInfoResponseDTO findID(FindInfoDTO findInfoDTO);
+//    boolean login(MemberDTO memberDTO);
 
-    FindInfoResponseDTO findPW(FindInfoDTO findInfoDTO);
+
+
+//    String selectMember(MemberDTO memberDTO);
 }

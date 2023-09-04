@@ -6,210 +6,213 @@
 
 <body>
 
-    <!-- Start Main Header -->
-    <header th:replace="/fragments/main-header :: main-header"></header>
-    <!-- End Main Header -->
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
 
-    <!-- Start Top Search -->
-    <div th:replace="/fragments/top-search :: top-search"></div>
-    <!-- End Top Search -->
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
 
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Cart</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active">Cart</li>
-                    </ul>
-                </div>
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>장바구니</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
             </div>
         </div>
     </div>
-    <!-- End All Title Box -->
+</div>
+<!-- End All Title Box -->
 
-    <!-- Start Cart  -->
-    <div class="cart-box-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Images</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-01.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                    <td class="total-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-02.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 60.0</p>
-                                    </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                    <td class="total-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-03.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 30.0</p>
-                                    </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                    <td class="total-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <form th:action="@{/cart/modify}" method="post">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>체크</th>
+                            <th>상품 명</th>
+                            <th>상품 가격</th>
+                            <th>수량</th>
+                            <th>합계 가격</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cartItem, iterStat : ${cartItems}" th:id="'row-' + ${cartItem.cartNo}">
+                            <td class="check">
+                                <input type="checkbox" th:name="'list[' + ${iterStat.index} + '].cartNo'">
+                                <a href="#">
+                                </a>
+                            </td>
+                            <td class="name-pr">
+                                <a href="#" th:text="${cartItem.productName}"></a>
+                            </td>
+                            <td class="price-pr">
+                                <p th:text="${cartItem.productPrice}"></p>
+                            </td>
+                            <td class="quantity-box"><input type="number" th:name="'list[' + ${iterStat.index} + '].cartAmount'" size="4" th:value="${cartItem.cartAmount}"
+                                                            min="0" step="1" class="c-input-text qty text"></td>
+                            <td class="total-pr">
+                                <p th:text="${cartItem.totalPrice}"></p>
+                            </td>
+                            <td class="remove-pr">
+                                <input type="hidden" th:name="'list[' + ${iterStat.index} + '].productNo'" th:value="${cartItem.productNo}">
+                                <input type="hidden" th:name="'list[' + ${iterStat.index} + '].cartNo'" th:value="${cartItem.cartNo}">
+                                <a href="#" class="remove-item" th:data-cart-no="${cartItem.cartNo}">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <div class="row my-5">
-                <div class="col-lg-6 col-sm-6">
-                    <div class="coupon-box">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button">Apply Coupon</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-6">
-                    <div class="update-box">
-                        <input value="Update Cart" type="submit">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row my-5">
-                <div class="col-lg-8 col-sm-12"></div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="order-box">
-                        <h3>Order summary</h3>
-                        <div class="d-flex">
-                            <h4>Sub Total</h4>
-                            <div class="ml-auto font-weight-bold"> $ 130 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Discount</h4>
-                            <div class="ml-auto font-weight-bold"> $ 40 </div>
-                        </div>
-                        <hr class="my-1">
-                        <div class="d-flex">
-                            <h4>Coupon Discount</h4>
-                            <div class="ml-auto font-weight-bold"> $ 10 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Tax</h4>
-                            <div class="ml-auto font-weight-bold"> $ 2 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Shipping Cost</h4>
-                            <div class="ml-auto font-weight-bold"> Free </div>
-                        </div>
-                        <hr>
-                        <div class="d-flex gr-total">
-                            <h5>Grand Total</h5>
-                            <div class="ml-auto h5"> $ 388 </div>
-                        </div>
-                        <hr> </div>
-                </div>
-                <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
-            </div>
-
         </div>
+
+        <div class="row my-5">
+            <div class="col-lg-6 col-sm-6">
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <div class="update-box">
+                    <input value="Update Cart" type="submit">
+                </div>
+            </div>
+        </div>
+        </form>
+        <div class="row my-5">
+            <div class="col-lg-8 col-sm-12"></div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="order-box">
+                    <h3>장바구니 주문</h3>
+                    <hr>
+                    <div class="d-flex gr-total">
+                        <h5>총 합계</h5>
+                        <div class="ml-auto h5"><span th:text="${totalPrice}"></span></div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-12 d-flex shopping-box" style="justify-content: flex-end;">
+                <form th:action="@{/order/confirm}" method="post">
+                    <div th:each="orderItem, iterStat : ${cartItems}">
+                        <input type="hidden" th:name="'list[' + ${iterStat.index} + '].productNo'"
+                               th:value="${orderItem.productNo}">
+                        <input type="hidden" th:name="'list[' + ${iterStat.index} + '].orderAmount'"
+                               th:value="${orderItem.cartAmount}">
+                    </div>
+                    <div class='ml-auto'>
+                        <button type='submit' class='btn hvr-hover order-cart'>주문하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
-    <!-- End Cart -->
+</div>
+<!-- End Cart -->
 
-    <!-- Start Instagram Feed  -->
-    <div th:replace="/fragments/instagram-box :: instagram-box"></div>
-    <!-- End Instagram Feed  -->
+<!-- Start Instagram Feed  -->
+<div th:replace="/fragments/instagram-box :: instagram-box"></div>
+<!-- End Instagram Feed  -->
 
-    <!-- Start Footer  -->
-    <footer th:replace="/fragments/footer :: footer"></footer>
-    <!-- End Footer  -->
+<!-- Start Footer  -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer  -->
 
-    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
-    <!-- ALL JS FILES -->
-    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/js/popper.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <!-- ALL PLUGINS -->
-    <script th:src="@{/js/jquery.superslides.min.js}"></script>
-    <script th:src="@{/js/bootstrap-select.js}"></script>
-    <script th:src="@{/js/inewsticker.js}"></script>
-    <script th:src="@{/js/bootsnav.js}"></script>
-    <script th:src="@{/js/images-loded.min.js}"></script>
-    <script th:src="@{/js/isotope.min.js}"></script>
-    <script th:src="@{/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/js/baguetteBox.min.js}"></script>
-    <script th:src="@{/js/form-validator.min.js}"></script>
-    <script th:src="@{/js/contact-form-script.js}"></script>
-    <script th:src="@{/js/custom.js}"></script>
+<script>
+
+    document.querySelectorAll('input#name[]')
+
+
+    document.querySelectorAll('.quantity-box input').forEach(input => {
+        input.addEventListener('change', e => {
+            const quantity = e.target.value;
+            const row = e.target.closest('tr');
+
+            const priceElement = row.querySelector('.price-pr p');
+            const price = parseInt(priceElement.textContent);
+
+            const totalItemPriceElement = row.querySelector('.total-pr p');
+            const itemTotalPrice = price * quantity;
+            totalItemPriceElement.textContent = itemTotalPrice;
+
+            let totalPrice = 0;
+            document.querySelectorAll('.total-pr p').forEach(itemPriceElement => {
+                totalPrice += parseInt(itemPriceElement.textContent);
+            });
+
+            let totalPriceSpan = document.querySelector('.gr-total .h5 span'');
+            totalPriceSpan.textContent = totalPrice;
+            console.log(quantity);
+            e.currentTarget.value = quantity;
+            console.log(e.currentTarget.value);
+        });
+    });
+
+
+
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', async e => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const no = e.currentTarget.dataset.cartNo;
+            console.log(no);
+            try {
+                const response = await fetch(`/cart/${no}`, {method: 'DELETE'});
+
+                if (!response.ok) throw new Error(`${response.status}`);
+
+                const result = await response.text();
+
+                if (result === 'ok') {
+                    let totalPriceSpan = document.querySelector('.gr-total .h5 span');
+                    let totalPrice = totalPriceSpan.textContent;
+                    let itemPrice = parseInt(document.querySelector(`#row-${no} .total-pr p`).textContent);
+
+                    totalPrice -= itemPrice;
+                    totalPriceSpan.textContent = totalPrice;
+
+                    const row = document.querySelector(`#row-${no}`);
+                    if (row) row.parentNode.removeChild(row);
+                }
+            } catch (error) {
+                console.error(`${no}:`, error);
+            }
+        });
+    });
+
+</script>
+<!-- ALL JS FILES -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- ALL PLUGINS -->
+<script th:src="@{/js/jquery.superslides.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/inewsticker.js}"></script>
+<script th:src="@{/js/bootsnav.js}"></script>
+<script th:src="@{/js//images-loded.min.js}"></script>
+<script th:src="@{/js/isotope.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/baguetteBox.min.js}"></script>
+<script th:src="@{/js/form-validator.min.js}"></script>
+<script th:src="@{/js/contact-form-script.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 </body>
 
 </html>

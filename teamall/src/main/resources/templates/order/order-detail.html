@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 th:if="${isUpdateMode}">주문 수정</h2>
+                <h2 th:unless="${isUpdateMode}">주문 상세</h2>
+
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/order/list">Order</a></li>
+                    <li class="breadcrumb-item active" th:if="${isUpdateMode}">Order Modify</li>
+                    <li class="breadcrumb-item active" th:unless="${isUpdateMode}">Order Detail</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>상품 번호</th>
+                            <th>상품 명</th>
+                            <th>상품 가격</th>
+                            <th>수량</th>
+                            <th>상품 총 가격</th>
+
+                            <th th:if="${isUpdateMode}">상품 취소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        <tr th:classappend="|row-${orderDetail.orderNo}|" th:each="orderDetail : ${order}">
+                            <td class="orderList" th:text="${orderDetail.orderNo}"></td>
+                            <td class="product-pr" th:text="${orderDetail.productName}"></td>
+                            <td class="price-pr" th:text="${orderDetail.productPrice}"></td>
+                            <td th:if="${isUpdateMode}">
+                                <input type="number" class="amount-pr" th:value="${orderDetail.orderAmount}">
+                            </td>
+                            <td class="amount-pr" th:unless="${isUpdateMode}"
+                                th:text="${orderDetail.orderAmount}"></td>
+                            <td class="order-price-pr" th:text="${orderDetail.orderPrice}"></td>
+                            <td class="remove-pr" th:if="${isUpdateMode}">
+                                <a href="#" class="remove"><i class="fas fa-times"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-lg-8 col-sm-12"></div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="order-box">
+                    <h3>영수증</h3>
+                    <hr>
+                    <div class="d-flex gr-total">
+                        <h5>총 합계</h5>
+                        <div class="ml-auto h5">
+                            <span class="total-price" th:text="${totalPrice}"></span>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-12 d-flex shopping-box">
+                <a href="/order/page" class="ml-auto btn hvr-hover">돌아가기</a>
+                <a th:if="${isUpdateMode}" href="#" class="ml-2 btn hvr-hover">주문 수정</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Cart -->
+
+<!-- Start Instagram Feed  -->
+<div th:replace="/fragments/instagram-box :: instagram-box"></div>
+<!-- End Instagram Feed  -->
+
+<!-- Start Footer  -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer  -->
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<script>
+    document.querySelectorAll(".remove").forEach(tag => {
+        tag.addEventListener("click", e => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const row = e.target.closest('tr');
+            const no = row.querySelector('.orderList').textContent;
+
+            console.log(`${no}`);
+
+            const deleteCheck = confirm("선택한 상품의 주문을 취소 하시겠습니까?");
+            if (deleteCheck) {
+                deleteOrder(no)
+                    .then(() => {
+                        const row = document.querySelector(`.row-${no}`);
+                        console.log(row);
+                        let totalPriceSpan = document.querySelector(".total-price");
+                        let totalPrice = totalPriceSpan.textContent;
+                        let itemPrice = parseInt(document.querySelector(`.row-${no} .order-price-pr`).textContent);
+                        totalPrice -= itemPrice;
+                        totalPriceSpan.textContent = totalPrice;
+                        if (row) {
+                            row.parentNode.removeChild(row);
+                        }
+                    }).catch(error => {
+                    console.error(`error ${no}:`, error);
+                })
+            }
+        })
+    })
+
+    async function deleteOrder(no) {
+
+        const response = await fetch('http://localhost:8080/order/item/' + no, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(`${response.status}`);
+        }
+        const result = await response.text();
+
+        console.log(result);
+        return Promise.resolve();
+    }
+
+
+</script>
+
+<!-- ALL JS FILES -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- ALL PLUGINS -->
+<script th:src="@{/js/jquery.superslides.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/inewsticker.js}"></script>
+<script th:src="@{/js/bootsnav.js}"></script>
+<script th:src="@{/js/images-loded.min.js}"></script>
+<script th:src="@{/js/isotope.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/baguetteBox.min.js}"></script>
+<script th:src="@{/js/form-validator.min.js}"></script>
+<script th:src="@{/js/contact-form-script.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>
