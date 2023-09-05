@@ -22,7 +22,7 @@
             <div class="col-lg-12">
                 <h2>회원가입</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/member/">메인으로</a></li>
+                    <li class="breadcrumb-item"><a href="/">메인으로</a></li>
                     <li class="breadcrumb-item active"><a href="/member/login">로그인</a></li>
                 </ul>
             </div>
@@ -74,8 +74,8 @@
                             <label class="custom-control-label" for="woman">여자</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" name="gender" id="not opened" value="not opened" class="custom-control-input" checked>
-                            <label class="custom-control-label" for="not opened">미공개</label>
+                            <input type="radio" name="gender" id="not" value="not" class="custom-control-input">
+                            <label class="custom-control-label" for="not">미공개</label>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="phone">phone</label>
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="0000-0000-0000" required>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="0000-0000-0000" maxlength="14" required>
                         <div class="invalid-feedback"> 전화번호를 정확히 입력해주세요.
                         </div>
                         <div class="form-row">

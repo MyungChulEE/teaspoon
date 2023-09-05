@@ -13,7 +13,7 @@
 <div th:replace="/fragments/top-search :: top-search"></div>
 <!-- End Top Search -->
 
-<form class="update-form" th:action="@{/mypage/select}"  method="get">
+<form class="update-form" th:action="@{/mypage/update}"  method="post">
     <div class="cart-box-main">
         <div class="container">
             <div>
@@ -46,8 +46,8 @@
                             <label class="custom-control-label" for="woman">여자</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" name="gender" id="not opened" value="not opened" class="custom-control-input" checked>
-                            <label class="custom-control-label" for="not opened">미공개</label>
+                            <input type="radio" name="gender" id="not" value="not" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="not">미공개</label>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="phone">phone</label>
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="0000-0000-0000" required>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="0000-0000-0000" maxlength="14" required>
                         <div class="invalid-feedback"> 전화번호를 정확히 입력해주세요.
                         </div>
                         <div class="form-row">
@@ -67,7 +67,11 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
                     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
                     <!-- ALL JS FILES -->
@@ -86,7 +90,6 @@
                     <script th:src="@{/js/form-validator.min.js}"></script>
                     <script th:src="@{/js/contact-form-script.js}"></script>
                     <script th:src="@{/js/custom.js}"></script>
-</form>
 </body>
 
 </html>

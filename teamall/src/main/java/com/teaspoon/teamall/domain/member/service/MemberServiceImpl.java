@@ -20,6 +20,7 @@ public class MemberServiceImpl implements MemberService {
 
         System.out.println(loginDTO.toString());
         LoginResponseDTO loginResponseDTO = memberMapper.login(loginDTO);
+        System.out.println(loginResponseDTO.toString());
         if (loginResponseDTO != null){
 
         return loginResponseDTO;
@@ -30,7 +31,6 @@ public class MemberServiceImpl implements MemberService {
     /* 아이디찾기 */
     public FindInfoResponseDTO findID(FindInfoDTO findInfoDTO) {
 
-        System.out.println(findInfoDTO.toString());
         System.out.println(findInfoDTO.toString());
         FindInfoResponseDTO IDDTO = memberMapper.findID(findInfoDTO);
         System.out.println(IDDTO.toString());

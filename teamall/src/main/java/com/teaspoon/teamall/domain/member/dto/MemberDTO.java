@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 
 public class MemberDTO {
-    private int member_no;
+    private int memberNo;
     private String email;
     private String password;
     private String nickname;
@@ -21,6 +21,6 @@ public class MemberDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birth;
     private String phone;
-    private Timestamp create_date;
-    private Timestamp update_date;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 }

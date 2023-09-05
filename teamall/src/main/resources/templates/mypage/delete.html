@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
 
 <body>
+
 <!-- Start Main Header -->
 <header th:replace="/fragments/main-header :: main-header"></header>
 <!-- End Main Header -->
@@ -11,24 +15,29 @@
 <div th:replace="/fragments/top-search :: top-search"></div>
 <!-- End Top Search -->
 
-<form class="delete-form" th:action="@{/mypage/delete}"   method="post" th:object="${memberDTO}">
-    <div>
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email" th:field="*{memberDTO.email}" required>
+<form class="delete-form" th:action="@{/mypage/delete}" method="post">
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="john@doe.com" value="" required>
+        <div class="invalid-feedback"> 이메일을 정확히 입력해주세요.
+        </div>
     </div>
     <div>
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" th:field="*{memberDTO.password}" required>
+        <div class="mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호는 문자+숫자+특수문자로 입력해주세요" value="" required>
+            <div class="invalid-feedback"> 비밀번호를 정확히 입력해주세요.
+            </div>
+        </div>
     </div>
     <div>
-        <button type="submit">회원 탈퇴</button>
+        <div class="mb-3">
+            <p>탈퇴하시면 다시는 정보를 복구할 수 없습니다.
+                <br>정말로 탈퇴하시겠습니까?</p>
+            <button type="submit">회원 탈퇴</button>
+        </div>
     </div>
 </form>
-
-<!-- 회원 탈퇴 실패 시 메시지 표시 -->
-<div th:if="${deleteCheck <= 0}" class="error-message">
-    <p>회원 탈퇴에 실패했습니다. 다시 시도해주세요.</p>
-</div>
 
 <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 

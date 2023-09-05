@@ -34,4 +34,6 @@ public interface MemberMapper {
      */
     FindInfoResponseDTO findPW(FindInfoDTO findInfoDTO);
 
+
+
 }

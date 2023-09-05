@@ -1,5 +1,6 @@
 package com.teaspoon.teamall.domain.member.service;
 
+import com.teaspoon.teamall.domain.member.dto.LoginResponseDTO;
 import com.teaspoon.teamall.domain.member.dto.MemberDTO;
 import com.teaspoon.teamall.domain.member.mapper.MypageMapper;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,8 @@ public class MypageServiceImpl implements MypageService {
     private final MypageMapper mypageMapper;
 
     /* 회원정보 조회 */
-    public MemberDTO selectMember(Long member_no) {
-        return mypageMapper.selectMember(member_no);
+    public MemberDTO selectMember(int memberNo, String password) {
+        return mypageMapper.selectMember(memberNo, password);
     }
 
     /* 회원정보 수정 */

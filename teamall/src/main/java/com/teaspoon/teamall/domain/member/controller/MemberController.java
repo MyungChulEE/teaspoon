@@ -58,8 +58,8 @@ public class MemberController {
         LoginResponseDTO loginResponseDTO = memberService.login(loginDTO);
 
         if (loginResponseDTO != null) {
+            System.out.println(loginResponseDTO.toString());
             httpSession.setAttribute("loginSuccess", loginResponseDTO);
-            httpSession.setMaxInactiveInterval(60 * 60);
             return "redirect:/"; // 로그인 후 이동할 페이지
         } else {
             return "/common/inputFailed";

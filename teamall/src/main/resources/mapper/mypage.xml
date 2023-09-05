@@ -6,10 +6,10 @@
 <mapper namespace="com.teaspoon.teamall.domain.member.mapper.MypageMapper">
 
     <!--회원정보 조회 -->
-    <select id="selectMember" parameterType="com.teaspoon.teamall.domain.member.dto.MemberDTO" resultType="com.teaspoon.teamall.domain.member.dto.MemberDTO">
-        SELECT email, nickname, gender, birth, phone, DATE_FORMAT(create_date, '%Y.%M.%D') AS create_date, DATE_FORMAT(update_date, '%Y.%M.%D')AS update_date
+    <select id="selectMember"  resultType="com.teaspoon.teamall.domain.member.dto.MemberDTO">
+        SELECT email, nickname, gender, birth, phone
         FROM member
-        WHERE member_no = #{member_no}
+        WHERE member_no = #{memberNo}
         AND password = #{password}
     </select>
 
@@ -22,7 +22,7 @@
                           birth = #{birth},
                           phone = #{phone},
                           update_date = now()
-        WHERE email = #{email}
+        WHERE member_no = #{memberNo}
     </update>
 
     <!--회원 탈퇴-->
@@ -32,6 +32,10 @@
           AND password = #{password}
     </delete>
 
-    <!--로그아웃-->
-
+    <!--멤버넘버만으로 멤버 찾아오기-->
+    <select id="findByMemberNo"  resultType="com.teaspoon.teamall.domain.member.dto.MemberDTO">
+        SELECT email, nickname, gender, birth, phone
+        FROM member
+        WHERE member_no = #{memberNo}
+    </select>
 </mapper>

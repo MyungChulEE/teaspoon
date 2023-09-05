@@ -1,14 +1,14 @@
 package com.teaspoon.teamall.domain.member.controller;
 
+import com.teaspoon.teamall.domain.member.dto.LoginResponseDTO;
 import com.teaspoon.teamall.domain.member.dto.MemberDTO;
+import com.teaspoon.teamall.domain.member.mapper.MypageMapper;
 import com.teaspoon.teamall.domain.member.service.MypageService;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +18,19 @@ import javax.servlet.http.HttpSession;
 public class MypageController {
 
     private final MypageService mypageService;
+    private final MypageMapper mypageMapper;
+    @GetMapping("/select")
+    public String getSelectMember(){
+        return "/mypage/select";
+    }
+
+    @GetMapping("/selectResult")
+    public String getfindByMemberNo(@RequestParam("memberNo") int memberNo, Model model){
+        System.out.println(memberNo);
+        MemberDTO memberDTO = mypageMapper.findByMemberNo(memberNo);
+        model.addAttribute("memberDTO", memberDTO);
+        return "/mypage/selectResult";
+    }
 
     @GetMapping("/delete")
     public String getDeleteMember(){
@@ -37,16 +50,17 @@ public class MypageController {
     }
 
     /* 회원정보 조회 */
-    @GetMapping("/select")
-    public String selectMember(HttpSession httpSession, Model model) {
-        Long member_no = (Long) httpSession.getAttribute("member_no");
+    @PostMapping("/select")
+    public String selectMember(HttpSession httpSession, Model model, String password) {
 
-        if (member_no != null) {
-            MemberDTO memberDTO = mypageService.selectMember(member_no);
+        LoginResponseDTO loginResponseDTO = (LoginResponseDTO) httpSession.getAttribute("loginSuccess");
+        int member_no = loginResponseDTO.getMemberNo();
 
+        if (loginResponseDTO != null) {
+            MemberDTO memberDTO = mypageService.selectMember(member_no, password);
             if (memberDTO != null) {
                 model.addAttribute("memberDTO", memberDTO);
-                return "redirect:/";
+                return "redirect:/mypage/selectResult?memberNo="+member_no;
             } else {
                 model.addAttribute("error", "멤버 정보를 찾을 수 없습니다.");
                 return "/common/inputFailed";
