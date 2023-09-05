@@ -38,6 +38,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public int modifyCartItemAmount(CartRequestDTO.ListDTO cartRequestDTO) {
         System.out.println("cartRequestDTO.toString() = " + cartRequestDTO.toString());
         int memberNo = 1;
@@ -49,6 +50,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public int removeCartItem(int cartNo) {
         return cartMapper.deleteCartItem(cartNo);
     }

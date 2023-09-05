@@ -4,11 +4,14 @@ package com.teaspoon.teamall.domain.order.controller;
 import com.teaspoon.teamall.domain.order.dto.*;
 import com.teaspoon.teamall.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,9 +22,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/page")
-    public String findOrderList(@RequestParam(value = "no", defaultValue = "1") int no, Model model) {
+    public String findOrderList(@RequestParam(value = "no", defaultValue = "1") int no, Model model, HttpSession httpSession) {
         int pageSize = 10;
         int totalOrder = orderService.getTotalOrder();
+        if (totalOrder <= 0) {
+            totalOrder = 1;
+        }
 
         int memberNo = 1;
         List<OrderResponseDTO> orderList = orderService.findOrderList(memberNo, no, pageSize);
@@ -34,7 +40,7 @@ public class OrderController {
     }
 
     @GetMapping("/{code}")
-    public String getOrderDetail(@PathVariable("code") String code, Model model) {
+    public String getOrderDetail(@PathVariable("code") String code, Model model, HttpSession httpSession) {
 
         List<OrderDetailDTO> orderDetail = orderService.findOrderDetail(code);
         orderDetail.stream().forEach(System.out::println);
@@ -78,14 +84,16 @@ public class OrderController {
 
 
     @PostMapping()
-    public String createOrder(@ModelAttribute OrderRequestDTO.ListDTO orderRequestDTO) {
-        String email = "test@email.com";
+    public String createOrder(@ModelAttribute OrderRequestDTO.ListDTO orderRequestDTO, RedirectAttributes redirectAttributes) {
+//        LoginResponseDTO memeber = (LoginResponseDTO) httpSession.getAttribute("loginSuccess");
         orderRequestDTO.getList().forEach(System.out::println);
-
-        int order = orderService.createOrder(orderRequestDTO, email);
+        int no = 1;
+        int order = orderService.createOrder(orderRequestDTO, no);
         System.out.println("order = " + order);
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("orderCreated", true);
+        return "redirect:/order/page";
     }
+
 
     @GetMapping("/modify/{code}")
     public String UpdateOrderDetail(@PathVariable("code") String code, Model model) {

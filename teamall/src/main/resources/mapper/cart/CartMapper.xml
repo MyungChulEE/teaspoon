@@ -52,9 +52,16 @@
         WHERE cart_no = #{catrNo}
     </delete>
 
+    <delete id="deleteCheckoutItem">
+        DELETE
+        FROM cart
+        WHERE member_no =#{memberNo} AND product_no = #{productNo}
+    </delete>
+
     <delete id="clearCart">
         DELETE
         FROM cart
         WHERE member_no = #{memberNo}
     </delete>
+
 </mapper>

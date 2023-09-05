@@ -60,7 +60,7 @@
                             <td class="product-pr" th:text="${orderDetail.productName}"></td>
                             <td class="price-pr" th:text="${orderDetail.productPrice}"></td>
                             <td th:if="${isUpdateMode}">
-                                <input type="number" class="amount-pr" th:value="${orderDetail.orderAmount}">
+                                <input type="number" min="1" class="amount-pr" th:value="${orderDetail.orderAmount}">
                             </td>
                             <td class="amount-pr" th:unless="${isUpdateMode}"
                                 th:text="${orderDetail.orderAmount}"></td>

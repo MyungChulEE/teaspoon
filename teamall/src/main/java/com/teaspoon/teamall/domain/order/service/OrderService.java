@@ -7,7 +7,7 @@ import java.util.List;
 public interface OrderService {
 
 
-    int createOrder(OrderRequestDTO.ListDTO orderRequestDTO, String email);
+    int createOrder(OrderRequestDTO.ListDTO orderRequestDTO, int no);
 
     List<OrderResponseDTO> findOrderList(int memberNo, int pageSize, int offset);
 
