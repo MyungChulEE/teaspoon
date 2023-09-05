@@ -6,7 +6,6 @@
 <head th:replace="/fragments/head :: head"></head>
 
 <body>
-
 <!-- Start Main Header -->
 <header th:replace="/fragments/main-header :: main-header"></header>
 <!-- End Main Header -->
@@ -15,39 +14,24 @@
 <div th:replace="/fragments/top-search :: top-search"></div>
 <!-- End Top Search -->
 
-<form class="select-form" th:action="@{/mypage/select}" method="post">
+<div class="container">
+    <div class="result-box">
+        <h2>이메일 찾기 결과</h2>
+        <p>회원님의 이메일은 다음과 같습니다:</p>
+        <p><strong th:text="${param.email}"></strong></p>
 
-    <h1>내 정보 조회 페이지입니다.</h1>
-
-    <div class="form-group">
-        <label for="password">비밀번호:</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        <a href="/member/login">로그인 페이지로 이동</a>
+        <a href="/member/findPW">비밀번호 찾기로 이동</a>
     </div>
+</div>
 
-    <button type="submit" class="btn btn-primary">조회</button>
+<!-- Start Instagram Feed -->
+<div th:replace="/fragments/instagram-box :: instagram-box"></div>
+<!-- End Instagram Feed -->
 
-    <table>
-        <tr>
-            <th>Email</th>
-            <th>Nickname</th>
-            <th>Gender</th>
-            <th>Birth</th>
-            <th>Phone</th>
-            <th>Create Date</th>
-            <th>Update Date</th>
-        </tr>
-        <tr th:if="${memberDTO != null}">
-            <td th:text="${memberDTO.email}"></td>
-            <td th:text="${memberDTO.nickname}"></td>
-            <td th:text="${memberDTO.gender}"></td>
-            <td th:text="${memberDTO.birth}"></td>
-            <td th:text="${memberDTO.phone}"></td>
-            <td th:text="${memberDTO.createDate}"></td>
-            <td th:text="${memberDTO.updateDate}"></td>
-        </tr>
-    </table>
-
-</form>
+<!-- Start Footer -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer -->
 
 <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
@@ -67,6 +51,6 @@
 <script th:src="@{/js/form-validator.min.js}"></script>
 <script th:src="@{/js/contact-form-script.js}"></script>
 <script th:src="@{/js/custom.js}"></script>
-
 </body>
+
 </html>

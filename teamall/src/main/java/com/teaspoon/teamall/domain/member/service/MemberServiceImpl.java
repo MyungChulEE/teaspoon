@@ -52,13 +52,5 @@ public class MemberServiceImpl implements MemberService {
         }
         return null;
     }
-
-        /* 내 정보 조회 -> 회원 CRUD 연습용. UnusedAPI*/
-//    public String selectMember( MemberDTO memberDTO) {
-//
-//        memberMapper.selectMember(memberDTO);
-//
-//        return MemberDTO;
-//    }
     
 }

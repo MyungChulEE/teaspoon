@@ -7,21 +7,21 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MypageMapper {
 
     /**
-     * 회원조회
-     * @param email - email값
+     * 회원정보 조회
+     * @param member_no - 세션에 저장된 멤버 PK넘버
      * @return - MemberDTO
      */
-    MemberDTO selectMember(String email);
+    MemberDTO selectMember(Long member_no);
 
     /**
-     * 회원수정
+     * 회원정보 수정
      * @param memberDTO - 멤버의 DTO
      * @return - int
      */
     int updateMember(MemberDTO memberDTO);
 
     /**
-     * 회원삭제
+     * 회원 탈퇴
      * @param memberDTO - 멤버의 DTO
      * @return - int
      */
