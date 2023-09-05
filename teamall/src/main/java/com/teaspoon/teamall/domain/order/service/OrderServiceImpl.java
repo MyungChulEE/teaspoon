@@ -1,6 +1,7 @@
 package com.teaspoon.teamall.domain.order.service;
 
 import com.teaspoon.teamall.domain.cart.mapper.CartMapper;
+import com.teaspoon.teamall.domain.member.dto.MemberProfileDTO;
 import com.teaspoon.teamall.domain.member.mapper.MemberMapper;
 import com.teaspoon.teamall.domain.order.dto.*;
 import com.teaspoon.teamall.domain.order.mapper.OrderMapper;
@@ -28,10 +29,10 @@ public class OrderServiceImpl implements OrderService {
 
         String orderCode = UUID.randomUUID().toString().replace("-", "");
         return orderRequestDTO.getList().stream()
-                .peek(orderRequest -> cartMapper.deleteCheckoutItem(1, orderRequest.getProductNo()))
+                .peek(orderRequest -> cartMapper.deleteCheckoutItem(no, orderRequest.getProductNo()))
                 .map(orderRequest -> OrderVO.builder()
                         .productNo(orderRequest.getProductNo())
-                        .memberNo(1)
+                        .memberNo(no)
                         .orderAmount(orderRequest.getOrderAmount())
                         .orderPrice(orderRequest.getOrderPrice())
                         .orderStatus(1)

@@ -23,7 +23,7 @@ public interface CartMapper {
 
     int deleteCartItem(int cartNo);
 
-    int deleteCheckoutItem(int memberNo, int productNo);
+    int deleteCheckoutItem(@Param("memberNo") int memberNo,@Param("productNo") int productNo);
 
     int clearCart(int memberNo);
 }

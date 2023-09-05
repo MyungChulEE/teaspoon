@@ -49,7 +49,7 @@
     <delete id="deleteCartItem">
         DELETE
         FROM cart
-        WHERE cart_no = #{catrNo}
+        WHERE cart_no = #{cartNo}
     </delete>
 
     <delete id="deleteCheckoutItem">

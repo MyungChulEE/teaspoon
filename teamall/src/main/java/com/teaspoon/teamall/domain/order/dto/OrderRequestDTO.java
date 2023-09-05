@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -13,12 +15,14 @@ import java.util.List;
 public class OrderRequestDTO {
 
     private int productNo;
+    @NotBlank
+    @Min(value = 1)
     private int orderAmount;
+    @NotBlank
     private int orderPrice;
 
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class ListDTO {
         private List<OrderRequestDTO> list;
     }
