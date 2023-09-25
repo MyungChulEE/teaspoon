@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<form class="findPW-form" th:action="@{/member/findPW}"  method="post">
+    <div class="cart-box-main">
+        <div class="container">
+            <div>
+                <div>
+                    <div class="title-left">
+                        <h4>비밀번호를 찾기 위해</h4>
+                        <h3>이메일과 생년월일, 휴대폰 번호를 기입해주세요.</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email" class="mb-0">이메일주소</label>
+                            <input type="email" class="form-control" id="email" name="email"  placeholder="john@doe.com">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="birth" class="mb-0">생년월일</label>
+                            <input type="date" class="form-control" name="birth" id="birth" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone" class="mb-0">휴대폰 번호</label>
+                            <input type="text" class="form-control" id="phone" name="phone"  placeholder="0000-0000-0000" maxlength="14">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <br>
+                            <button type="submit" class="btn hvr-hover">입력 완료</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- End Cart -->
+
+<!-- Start Instagram Feed  -->
+<div th:replace="/fragments/instagram-box :: instagram-box"></div>
+<!-- End Instagram Feed  -->
+
+<!-- Start Footer  -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer  -->
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<!-- ALL JS FILES -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- ALL PLUGINS -->
+<script th:src="@{/js/jquery.superslides.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/inewsticker.js}"></script>
+<script th:src="@{/js/bootsnav.js}"></script>
+<script th:src="@{/js/images-loded.min.js}"></script>
+<script th:src="@{/js/isotope.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/baguetteBox.min.js}"></script>
+<script th:src="@{/js/form-validator.min.js}"></script>
+<script th:src="@{/js/contact-form-script.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

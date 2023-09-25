@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teaspoon.teamall.domain.member.mapper.MemberMapper">
+
+    <!--회원가입-->
+    <insert id="join" parameterType="com.teaspoon.teamall.domain.member.dto.MemberDTO" useGeneratedKeys="true" keyProperty="memberNo">
+        INSERT INTO member(email, password, nickname, gender, birth, phone, create_date, update_date)
+        VALUES (#{email}, #{password}, #{nickname}, #{gender}, #{birth}, #{phone}, now(), now())
+    </insert>
+
+    <!--로그인-->
+    <select id="login" parameterType="com.teaspoon.teamall.domain.member.dto.LoginDTO" resultType="com.teaspoon.teamall.domain.member.dto.LoginResponseDTO">
+        SELECT member_no, email, nickname
+        FROM member
+        WHERE email = #{email}
+          AND password = #{password}
+    </select>
+
+    <!--아이디찾기-->
+    <select id="findID" parameterType="com.teaspoon.teamall.domain.member.dto.FindInfoDTO" resultType="com.teaspoon.teamall.domain.member.dto.FindInfoResponseDTO" >
+        SELECT email
+        FROM member
+        WHERE birth = #{birth}
+          AND phone = #{phone}
+    </select>
+
+    <!--비밀번호찾기-->
+    <select id="findPW" parameterType="com.teaspoon.teamall.domain.member.dto.FindInfoDTO" resultType="com.teaspoon.teamall.domain.member.dto.FindInfoResponseDTO">
+        SELECT password
+        FROM member
+        WHERE email = #{email}
+          AND birth = #{birth}
+          AND phone = #{phone}
+    </select>
+
+</mapper>

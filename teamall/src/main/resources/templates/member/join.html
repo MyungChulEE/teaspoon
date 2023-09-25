@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>회원가입</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">메인으로</a></li>
+                    <li class="breadcrumb-item active"><a href="/member/login">로그인</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start join  -->
+<form class="needs-validation" th:action="@{/member/join}"  method="post">
+    <div class="cart-box-main">
+        <div class="container">
+            <div>
+                <div>
+                    <div class="title-left">
+                        <h3>가입에 필요한 회원정보를 입력해주세요</h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="john@doe.com" value="" required>
+                        <div class="invalid-feedback"> 이메일을 정확히 입력해주세요.
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-3">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호는 문자+숫자+특수문자로 입력해주세요" value="" required>
+                            <div class="invalid-feedback"> 비밀번호를 정확히 입력해주세요.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nickname">Nickname</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="본명이 아닌 닉네임을 입력해주세요" value="" required>
+                            <div class="invalid-feedback" > 사용하실 닉네임을 정확히 입력해주세요.
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="title"> <span>Gender</span> </div>
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="gender" id="man" value="male" class="custom-control-input">
+                            <label class="custom-control-label" for="man">남자</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="gender" id="woman" value="female" class="custom-control-input">
+                            <label class="custom-control-label" for="woman">여자</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="gender" id="not" value="not" class="custom-control-input">
+                            <label class="custom-control-label" for="not">미공개</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="birth" class="mb-0">Birth</label>
+                        <input type="date" class="form-control" name="birth" id="birth" required>
+                        <div class="invalid-feedback"> 올바른 생년월일을 입력해주세요.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone">phone</label>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="0000-0000-0000" maxlength="14" required>
+                        <div class="invalid-feedback"> 전화번호를 정확히 입력해주세요.
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn hvr-hover">입력 완료</button><br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End join -->
+
+<!-- Start Instagram Feed  -->
+<div th:replace="/fragments/instagram-box :: instagram-box">
+
+</div>
+<!-- End Instagram Feed  -->
+
+<!-- Start Footer  -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer  -->
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<!-- ALL JS FILES -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- ALL PLUGINS -->
+<script th:src="@{/js/jquery.superslides.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/inewsticker.js}"></script>
+<script th:src="@{/js/bootsnav.js}"></script>
+<script th:src="@{/js/images-loded.min.js}"></script>
+<script th:src="@{/js/isotope.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/baguetteBox.min.js}"></script>
+<script th:src="@{/js/form-validator.min.js}"></script>
+<script th:src="@{/js/contact-form-script.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

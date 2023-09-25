@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teaspoon.teamall.domain.cart.mapper.CartMapper">
+    <select id="getCartList" resultType="com.teaspoon.teamall.domain.cart.dto.CartDTO">
+        select cart_no, member_no, product_no, product_amount
+        from cart
+    </select>
+
+    <insert id="cartInsert">
+        insert into cart(cart_no, member_no, product_no, product_amount)
+        values(#{cartNo}, #{memberNo}, #{productNo}, #{productAmount})
+    </insert>
+
+    <update id="cartUpdate">
+        update cart
+        set product_amount = #{productAmount}
+        where cart_no = #{cartNo} and product_no = #{productNo}
+    </update>
+
+    <delete id="cartDelete">
+        delete from cart
+        where cart_no = #{cartNo} and product_no = #{productNo}
+    </delete>
+
+
+
+</mapper>

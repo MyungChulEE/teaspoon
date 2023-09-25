@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header class="main-header" th:fragment="main-header">
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+        <div class="container">
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                        aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/images/logo.png" class="logo" alt=""></a>
+            </div>
+            <!-- End Header Navigation -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/product/list">SHOP</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cart/items">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/order/page">Order</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+
+            <!-- Start Attribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                    <li class="side-menu">
+                        <a href="#">
+                            <p>My Account</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Attribute Navigation -->
+        </div>
+
+        <!-- Start Side Menu -->
+        <div class="side">
+
+            <div th:if="${session.loginSuccess != null}" class="top_menu">
+                <div class="login_user"><strong><i class="far fa-user-circle"></i> [[ ${session.loginSuccess.nickname} ]]</strong>님 반갑습니다.</div>
+                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+                <li class="cart-box">
+                    <ul class="cart-list">
+                        <li class="total">
+                            <a href="/mypage/select" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/select" class="badge">Check My<br>Information</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/mypage/update" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/update" class="badge">Update My<br>Information</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/mypage/delete" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/mypage/delete" class="badge">Withdraws<br>Your Account</a></h1>
+                        </li>
+                        <li class="total" align="center">
+                            <form action="/mypage/logout" method="get">
+                                <button type="submit"><span class=>로그아웃</span><i class="fas fa-sign-out-alt"></i></button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div th:if="${session.loginSuccess == null}">
+                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+                <li class="cart-box">
+                    <ul class="cart-list">
+                        <li class="total">
+                            <a href="/member/login" class="photo"><img src="/images/member-ico/login.png" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/login" class="badge">Login<br>(with your mail)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/member/join" class="photo"><img src="/images/member-ico/join.png" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/join" class="badge">Join us!!<br>(Welcome!!)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/member/findID" class="photo"><img src="/images/member-ico/findID.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/findID" class="badge">Find E-mail<br>(with your phone)</a></h1>
+                        </li>
+                        <li class="total">
+                            <a href="/member/findPW" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>
+                            <h1 align="center"><a href="/member/findPW" class="badge">Find PW<br>(with your E-mail)</a></h1>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+
+
+
+        <!-- Start Side Menu If you Logged in-->
+        <!--        <div class="side">-->
+        <!--            <a href="#" class="close-side"><i class="fa fa-times"></i></a>-->
+        <!--            <li class="cart-box">-->
+        <!--                <ul class="cart-list">-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/selectMember" class="photo"><img src="/images/member-ico/login.png" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/selectMember" class="badge">Login<br>(with your mail)</a></h1>-->
+        <!--                    </li>-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/updateMember" class="photo"><img src="/images/member-ico/join.png" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/updateMember" class="badge">Join us!!<br>(Welcome!!)</a></h1>-->
+        <!--                    </li>-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/deleteMember" class="photo"><img src="/images/member-ico/findID.jpg" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/deleteMember" class="badge">Find E-mail<br>(with your phone)</a></h1>-->
+        <!--                    </li>-->
+        <!--                    <li class="total">-->
+        <!--                        <a href="/member/logout" class="photo"><img src="/images/member-ico/findPW.jpg" class="cart-thumb" alt="" /></a>-->
+        <!--                        <h1 align="center"><a href="/member/logout" class="badge">Find PW<br>(with your E-mail)</a></h1>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </li>-->
+        <!--        </div>-->
+        <!-- End Side Menu If you Logged in-->
+    </nav>
+    <!-- End Navigation -->
+</header>
+<!-- End Main Top -->
+</html>

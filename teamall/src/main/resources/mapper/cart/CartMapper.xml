@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teaspoon.teamall.domain.cart.mapper.CartMapper">
+
+    <insert id="insertCart" parameterType="com.teaspoon.teamall.domain.cart.dto.CartRequestDTO" useGeneratedKeys="true"
+            keyProperty="cartRequestDTO.cartNo">
+        INSERT INTO cart (member_no, product_no, cart_amount)
+        VALUES (#{memberNo}, #{cartRequestDTO.productNo}, #{cartRequestDTO.cartAmount})
+    </insert>
+
+    <select id="selectCartItem" resultType="com.teaspoon.teamall.domain.cart.dto.CartItemDTO">
+        SELECT cart_no, cart_amount
+        FROM cart
+        WHERE member_no = #{memberNo}
+          AND product_no = #{productNo}
+    </select>
+    <select id="selectCartItemAll" resultType="com.teaspoon.teamall.domain.cart.dto.CartResponseDTO">
+        SELECT c.cart_no,
+               c.cart_amount,
+               p.product_no,
+               p.product_name,
+               p.product_price
+        FROM cart c
+                 INNER JOIN product p
+                            ON c.product_no = p.product_no
+        WHERE c.member_no = #{memberNo}
+    </select>
+
+    <update id="updateCartAmount">
+        UPDATE cart
+        SET cart_amount = cart_amount + #{cartRequestDTO.cartAmount}
+        WHERE member_no = #{memberNo}
+          AND product_no = #{cartRequestDTO.productNo}
+          AND cart_amount + #{cartRequestDTO.cartAmount} >= 0
+    </update>
+
+    <update id="updateCartItemAmount">
+        UPDATE cart
+        SET cart_amount = #{cartRequestDTO.cartAmount}
+        WHERE member_no = #{memberNo}
+          AND product_no = #{cartRequestDTO.productNo}
+          AND cart_amount + #{cartRequestDTO.cartAmount} >= 0
+    </update>
+
+
+    <delete id="deleteCartItem">
+        DELETE
+        FROM cart
+        WHERE cart_no = #{cartNo}
+    </delete>
+
+    <delete id="deleteCheckoutItem">
+        DELETE
+        FROM cart
+        WHERE member_no =#{memberNo} AND product_no = #{productNo}
+    </delete>
+
+    <delete id="clearCart">
+        DELETE
+        FROM cart
+        WHERE member_no = #{memberNo}
+    </delete>
+
+</mapper>

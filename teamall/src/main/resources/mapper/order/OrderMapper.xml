@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teaspoon.teamall.domain.order.mapper.OrderMapper">
+    <resultMap id="orderResponseDTO" type="com.teaspoon.teamall.domain.order.dto.OrderResponseDTO">
+        <id property="orderNo" column="order_no"/>
+        <result property="orderTime" column="order_time"/>
+        <result property="orderAmount" column="order_amount"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+
+    <insert id="insertOrder" parameterType="com.teaspoon.teamall.domain.order.vo.OrderVO" useGeneratedKeys="true"
+            keyProperty="orderNo">
+        INSERT INTO orders (product_no, member_no, order_time, order_amount, order_price, order_status, order_code)
+        VALUES (#{productNo}, #{memberNo}, now(), #{orderAmount}, #{orderPrice}, #{orderStatus}, #{orderCode})
+    </insert>
+
+    <select id="getOrderList" resultMap="orderResponseDTO">
+    <![CDATA[
+        SELECT MIN(o.order_no)                     AS order_no,
+               o.order_code,
+               MAX(o.order_time)                   AS order_time,
+               SUM(o.order_amount)                 AS order_amount,
+               MAX(o.order_status)                 AS order_status,
+               SUM(o.order_price * o.order_amount) AS order_price,
+               MIN(p.product_name)                 as product_name
+        FROM orders o
+                 INNER JOIN product p
+                            ON o.product_no = p.product_no
+        WHERE o.member_no = #{memberNo}
+        GROUP BY o.order_code
+        ORDER BY MAX(o.order_time) DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+        ]]>
+    </select>
+
+
+    <select id="getTotalOrder" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM orders
+    </select>
+
+    <select id="getOrder" resultType="com.teaspoon.teamall.domain.order.dto.OrderDetailDTO">
+        SELECT o.order_no,
+               o.order_amount,
+               o.order_price,
+               p.product_name,
+               p.product_price
+        FROM orders o
+                 INNER JOIN product p
+                            ON o.product_no = p.product_no
+        where o.order_code = #{orderCode}
+    </select>
+
+    <update id="updateOrder">
+        UPDATE orders
+        SET order_amount = #{orderAmount},
+            order_price  = (SELECT product_price
+                            FROM product
+                            WHERE product_no = orders.product_no) * #{orderAmount}
+        WHERE order_no = #{orderNo}
+          and order_status = 1
+    </update>
+
+
+    <delete id="deleteOrder">
+        DELETE
+        FROM orders
+        WHERE order_code = #{orderCode}
+          and order_status = 1
+    </delete>
+
+
+    <delete id="deleteOrderItem">
+        DELETE
+        FROM orders
+        WHERE order_no = #{orderNo}
+          and order_status = 1
+    </delete>
+
+</mapper>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Basic -->
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<!-- Start Main Header -->
+<header th:replace="/fragments/main-header :: main-header"></header>
+<!-- End Main Header -->
+
+<!-- Start Top Search -->
+<div th:replace="/fragments/top-search :: top-search"></div>
+<!-- End Top Search -->
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>장바구니</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <form th:action="@{/cart/modify}" method="post">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>체크</th>
+                            <th>상품 명</th>
+                            <th>상품 가격</th>
+                            <th>수량</th>
+                            <th>합계 가격</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cartItem, iterStat : ${cartItems}" th:id="'row-' + ${cartItem.cartNo}">
+                            <td class="check">
+<!--                                <input type="checkbox" name="selectedItems" th:value="${cartItem.cartNo}" checked>-->
+                                <a href="#">
+                                </a>
+                            </td>
+                            <td class="name-pr">
+                                <a href="#" th:text="${cartItem.productName}"></a>
+                            </td>
+                            <td class="price-pr">
+                                <p th:text="${cartItem.productPrice}"></p>
+                            </td>
+                            <td class="quantity-box"><input type="number" th:name="'list[' + ${iterStat.index} + '].cartAmount'" size="4" th:value="${cartItem.cartAmount}"
+                                                            min="1" step="1" class="c-input-text qty text"></td>
+                            <td class="total-pr">
+                                <p th:text="${cartItem.totalPrice}"></p>
+                            </td>
+                            <td class="remove-pr">
+                                <input type="hidden" th:name="'list[' + ${iterStat.index} + '].productNo'" th:value="${cartItem.productNo}">
+                                <input type="hidden" th:name="'list[' + ${iterStat.index} + '].cartNo'" th:value="${cartItem.cartNo}">
+                                <a href="#" class="remove-item" th:data-cart-no="${cartItem.cartNo}">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <div class="col-lg-6 col-sm-6">
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <div class="update-box">
+                    <input value="Update Cart" class="btn-outline-success" type="submit">
+                </div>
+            </div>
+        </div>
+        </form>
+        <div class="row my-5">
+            <div class="col-lg-8 col-sm-12"></div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="order-box">
+                    <h3>장바구니 주문</h3>
+                    <hr>
+                    <div class="d-flex gr-total">
+                        <h5>총 합계</h5>
+                        <div class="ml-auto h5"><span th:text="${totalPrice}"></span></div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-12 d-flex shopping-box" style="justify-content: flex-end;">
+                <form th:action="@{/order/confirm}" id="order-form" name="order-form" method="post">
+                    <div th:each="orderItem, iterStat : ${cartItems}">
+                        <input type="hidden" th:name="'list[' + ${iterStat.index} + '].productNo'"
+                               th:value="${orderItem.productNo}">
+                        <input type="hidden" th:name="'list[' + ${iterStat.index} + '].orderAmount'"
+                               th:value="${orderItem.cartAmount}">
+                    </div>
+                    <div class='ml-auto'>
+                        <input class="btn btn-outline-success  btn-lg order-cart" type="submit" th:value="주문하기">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Cart -->
+
+<!-- Start Instagram Feed  -->
+<div th:replace="/fragments/instagram-box :: instagram-box"></div>
+<!-- End Instagram Feed  -->
+
+<!-- Start Footer  -->
+<footer th:replace="/fragments/footer :: footer"></footer>
+<!-- End Footer  -->
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<script>
+
+    // document.querySelector('.order-cart').addEventListener('click', function(e) {
+    //     e.preventDefault();
+    //
+    //     // 선택된 상품들만 가져옵니다.
+    //     const selectedItems = Array.from(document.querySelectorAll('.check input:checked'))
+    //         .map(checkbox => checkbox.closest('tr'));
+    //
+    //     // 주문 폼을 가져옵니다.
+    //     const orderForm = document.querySelector('#order-form');
+    //
+    //     if (!orderForm) {
+    //         console.error('Cannot find the order form');
+    //         return;
+    //     }
+    //
+    //     // 기존의 숨겨진 인풋값들을 제거합니다.
+    //     orderForm.querySelectorAll('input[type="hidden"]').forEach(input => input.remove());
+    //
+    //     // 선택된 상품들의 정보를 숨겨진 인풋값으로 주문 폼에 추가합니다.
+    //     selectedItems.forEach((row, index) => {
+    //         const productNoInput = row.querySelector('[th\\:name$=".productNo"]');
+    //         const cartAmountInput = row.querySelector('.quantity-box input');
+    //
+    //         if (!productNoInput || !cartAmountInput) {
+    //             console.error('Cannot find required elements:', {row, productNoInput, cartAmountInput});
+    //             return;  // Skip this iteration if we cannot find required elements.
+    //         }
+    //
+    //         const productNo = productNoInput.value;
+    //         const cartAmount = cartAmountInput.value;
+    //
+    //         // Rest of your code...
+    //     });
+    //
+    //     // 주문 폼 제출
+    //     orderForm.submit();
+    // });
+
+
+    // document.querySelectorAll('.check input').forEach(input => {
+    //     input.addEventListener('change', e => {
+    //         const isChecked = e.target.checked;
+    //         const row = e.target.closest('tr');
+    //
+    //         const totalItemPriceElement = row.querySelector('.total-pr p');
+    //         const itemTotalPrice = parseInt(totalItemPriceElement.textContent);
+    //
+    //         let totalPriceSpan = document.querySelector('.gr-total .h5 span');
+    //         let totalPrice = parseInt(totalPriceSpan.textContent);
+    //
+    //         if (isChecked) {
+    //             totalPrice += itemTotalPrice;
+    //         } else {
+    //             totalPrice -= itemTotalPrice;
+    //         }
+    //
+    //         totalPriceSpan.textContent = isChecked ? totalPrice : '0';
+    //     });
+    // });
+    // document.querySelectorAll('.check input').forEach(input => {
+    //     input.addEventListener('change', e => {
+    //         const isChecked = e.target.checked;
+    //         const row = e.target.closest('tr');
+    //
+    //         const totalItemPriceElement = row.querySelector('.total-pr p');
+    //         const itemTotalPrice = parseInt(totalItemPriceElement.textContent);
+    //
+    //         let totalPriceSpan = document.querySelector('.gr-total .h5 span');
+    //
+    //         let selectedItems = Array.from(document.querySelectorAll('.check input:checked')).map(checkbox => {
+    //             return {
+    //                 row: checkbox.closest('tr'),
+    //                 price: parseInt(checkbox.closest('tr').querySelector('.total-pr p').textContent)
+    //             };
+    //         });
+    //
+    //         let totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
+    //
+    //         // if (isChecked) {
+    //         //     totalPrice += itemTotalPrice; // 체크박스가 선택된 경우, 해당 상품의 가격을 총 합계에 더합니다.
+    //         //     selectedItems.push({row, price: itemTotalPrice});
+    //         // } else {
+    //         //     totalPrice -= itemTotalPrice; // 체크박스가 해제된 경우, 해당 상품의 가격을 총 합계에서 뺍니다.
+    //         //     selectedItems = selectedItems.filter(item => item.row !== row);
+    //         // }
+    //
+    //         // 선택된 항목들만 고려하여 새로운 총 가격 계산
+    //         totalPriceSpan.textContent = totalPrice;
+    //     });
+    // });
+
+
+    document.querySelectorAll('.quantity-box input').forEach(input => {
+        input.addEventListener('change', e => {
+            const quantity = e.target.value;
+            const row = e.target.closest('tr');
+
+            const priceElement = row.querySelector('.price-pr p');
+            const price = parseInt(priceElement.textContent);
+
+            const totalItemPriceElement = row.querySelector('.total-pr p');
+            totalItemPriceElement.textContent = price * quantity;
+
+            let totalPrice = 0;
+            document.querySelectorAll('.total-pr p').forEach(itemPriceElement => {
+                totalPrice += parseInt(itemPriceElement.textContent);
+            });
+
+
+            let totalPriceSpan = document.querySelector('.gr-total .h5 span');
+            totalPriceSpan.textContent = totalPrice;
+            console.log(quantity);
+            e.currentTarget.value = quantity;
+            console.log(e.currentTarget.value);
+        });
+    });
+
+
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', async e => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const no = e.currentTarget.dataset.cartNo;
+            console.log(no);
+            try {
+                const response = await fetch(`/cart/${no}`, {method: 'DELETE'});
+
+                if (!response.ok) throw new Error(`${response.status}`);
+
+                const result = await response.text();
+
+                if (result === 'ok') {
+                    let totalPriceSpan = document.querySelector('.gr-total .h5 span');
+                    let totalPrice = totalPriceSpan.textContent;
+                    let itemPrice = parseInt(document.querySelector(`#row-${no} .total-pr p`).textContent);
+
+                    totalPrice -= itemPrice;
+                    totalPriceSpan.textContent = totalPrice;
+
+                    const row = document.querySelector(`#row-${no}`);
+                    if (row) row.parentNode.removeChild(row);
+                }
+            } catch (error) {
+                console.error(`${no}:`, error);
+            }
+        });
+    });
+
+</script>
+<!-- ALL JS FILES -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- ALL PLUGINS -->
+<script th:src="@{/js/jquery.superslides.min.js}"></script>
+<script th:src="@{/js/bootstrap-select.js}"></script>
+<script th:src="@{/js/inewsticker.js}"></script>
+<script th:src="@{/js/bootsnav.js}"></script>
+<script th:src="@{/js//images-loded.min.js}"></script>
+<script th:src="@{/js/isotope.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/baguetteBox.min.js}"></script>
+<script th:src="@{/js/form-validator.min.js}"></script>
+<script th:src="@{/js/contact-form-script.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>
